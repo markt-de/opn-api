@@ -10,11 +10,11 @@ A Ruby client library and CLI tool for the OPNsense REST API.
 1. [Modes](#modes)
 1. [CLI Usage](#cli-usage)
 1. [Configuration](#configuration)
+1. [Basics](#basics)
+1. [Table output and field filtering](#table-output-and-field-filtering)
 1. [Examples](#examples)
-    - [Backup](#backup)
-    - [Basics](#basics)
-    - [Table output and field filtering](#table-output-and-field-filtering)
     - [ACME Client](#acme-client)
+    - [Backup](#backup)
     - [Cron](#cron)
     - [DHC Relay](#dhc-relay)
     - [Firewall](#firewall)
@@ -132,7 +132,7 @@ opn_api is a standalone Ruby library and command-line tool for communicating wit
 | `zabbix_agent_userparameter` | Zabbix Agent UserParameter entries |
 | `zabbix_proxy` | Zabbix Proxy settings (singleton) |
 
-Plugins are managed separately via the `plugins`, `install`, and `uninstall` commands.
+Backups and plugins are managed separately via dedicated commands (`backup`, `plugins`, `install`, `uninstall`).
 
 ## Install
 
@@ -173,6 +173,7 @@ Global options:
   -h, --help               Show this help
 
 Commands:
+  backup       Download config backup
   create       Create resource
   delete       Delete resource
   devices      List configured devices
@@ -216,31 +217,7 @@ timeout: 60
 
 This format is compatible with [puppet-opn](https://github.com/markt-de/puppet-opn) device files, so existing Puppet configurations can be reused by pointing `config_dir` to the Puppet config directory.
 
-## Examples
-
-### Backup
-
-Download the OPNsense configuration backup (XML). The backup endpoint returns XML instead of JSON, so this command uses a raw (non-JSON) mode internally.
-
-```
-# Download backup to file
-$ opn-api -d opnsense01 backup /tmp/opnsense01-backup.xml
-
-# Print backup XML to stdout (e.g. for piping)
-$ opn-api -d opnsense01 backup > /tmp/opnsense01-backup.xml
-```
-
-Ruby API:
-
-```ruby
-# Download backup as raw XML string
-config = OpnApi::Config.new
-client = config.client_for('opnsense01')
-xml = client.get('core/backup/download/this', raw: true)
-File.write('/tmp/backup.xml', xml)
-```
-
-### Basics
+## Basics
 
 ```
 # List configured devices
@@ -253,7 +230,7 @@ $ opn-api -d opnsense01 test
 $ opn-api resources
 ```
 
-### Table output and field filtering
+## Table output and field filtering
 
 By default, the table output shows only the first 5 fields to keep it readable. Use `-F` to select specific fields or `-A` to show all fields. Fields with empty values are hidden by default — use `-E` to show them. JSON and YAML output (`-f json`, `-f yaml`) always includes all data unmodified.
 
@@ -273,6 +250,8 @@ $ opn-api -d opnsense01 -E show acmeclient_settings
 # JSON output always includes all data (unaffected by -F/-A/-E)
 $ opn-api -d opnsense01 -f json search haproxy_server
 ```
+
+## Examples
 
 ### ACME Client
 
@@ -295,6 +274,28 @@ $ opn-api -d opnsense01 show acmeclient_settings
 # Update ACME settings (wrapper key: "acmeclient")
 $ opn-api -d opnsense01 update acmeclient_settings \
     -j '{"acmeclient":{"settings":{"environment":"production"}}}'
+```
+
+### Backup
+
+Download the OPNsense configuration backup (XML). The backup endpoint returns XML instead of JSON, so this command uses a raw (non-JSON) mode internally.
+
+```
+# Download backup to file
+$ opn-api -d opnsense01 backup /tmp/opnsense01-backup.xml
+
+# Print backup XML to stdout (e.g. for piping)
+$ opn-api -d opnsense01 backup > /tmp/opnsense01-backup.xml
+```
+
+Ruby API:
+
+```ruby
+# Download backup as raw XML string
+config = OpnApi::Config.new
+client = config.client_for('opnsense01')
+xml = client.get('core/backup/download/this', raw: true)
+File.write('/tmp/backup.xml', xml)
 ```
 
 ### Cron
