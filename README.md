@@ -58,8 +58,8 @@ opn_api is a standalone Ruby library and command-line tool for communicating wit
 - UUID/name resolution for ModelRelationField and CertificateField references
 - Service reconfigure orchestration with configtest support
 - OPNsense selection-hash normalization
-- A resource registry that abstracts away OPNsense's inconsistent endpoint naming
 - A CLI tool for interactive API access
+- A resource registry that abstracts away inconsistent endpoint naming
 
 ## Supported resources
 
