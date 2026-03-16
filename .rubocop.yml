@@ -1,0 +1,65 @@
+---
+plugins:
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.1
+
+# Allow predicate-style method names without ? suffix
+Naming/PredicateMethod:
+  Enabled: false
+
+# Use %r{} for all regexes (consistent with puppet-opn)
+Style/RegexpLiteral:
+  EnforcedStyle: percent_r
+
+# Single-quoted strings preferred
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# Allow %{name} template tokens — used in Resource crud_action templates
+Style/FormatStringToken:
+  Enabled: false
+
+# Trailing commas in multiline
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+# Disabled metrics — keep code readable without arbitrary limits
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/ParameterLists:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# Allow longer lines for readability
+Layout/LineLength:
+  Max: 120
+
+# RSpec cops
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/DescribeClass:
+  Enabled: false
