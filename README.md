@@ -928,7 +928,7 @@ results = OpnApi::ServiceReconfigure[:haproxy].run
 
 ### Config loader
 
-`OpnApi::Config` loads device credentials from YAML files with a hierarchical search path. Supports multiple devices and is compatible with puppet-opn's device file format.
+`OpnApi::Config` loads device credentials from YAML files with a hierarchical search path. Supports multiple devices and is compatible with [puppet-opn's](https://github.com/markt-de/puppet-opn) device file format.
 
 ### ID resolver
 
