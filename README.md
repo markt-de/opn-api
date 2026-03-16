@@ -63,6 +63,8 @@ opn_api is a standalone Ruby library and command-line tool for communicating wit
 
 ## Supported resources
 
+Backups and plugins are managed separately via dedicated commands (`backup`, `plugins`, `install`, `uninstall`).
+
 | Resource | Manages |
 |----------|---------|
 | `acmeclient_account` | ACME Client accounts |
@@ -131,8 +133,6 @@ opn_api is a standalone Ruby library and command-line tool for communicating wit
 | `zabbix_agent_alias` | Zabbix Agent Alias entries |
 | `zabbix_agent_userparameter` | Zabbix Agent UserParameter entries |
 | `zabbix_proxy` | Zabbix Proxy settings (singleton) |
-
-Backups and plugins are managed separately via dedicated commands (`backup`, `plugins`, `install`, `uninstall`).
 
 ## Install
 
