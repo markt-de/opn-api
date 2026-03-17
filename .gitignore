@@ -17,3 +17,4 @@ test/version_tmp/
 tmp/
 .byebug_history
 .rspec_status
+vendor/

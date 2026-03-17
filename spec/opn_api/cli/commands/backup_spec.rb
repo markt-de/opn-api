@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'opn_api/cli/main'
 require 'tempfile'
 
 RSpec.describe OpnApi::CLI::Commands::Backup do
