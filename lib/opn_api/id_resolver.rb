@@ -17,7 +17,7 @@ module OpnApi
   #     'linkedServers' => { endpoint: 'haproxy/settings/search_servers', multiple: true },
   #     'sslCA' => { endpoint: 'trust/ca/search', id_field: 'refid', name_field: 'descr' },
   #   }
-  #   translated = OpnApi::IdResolver.translate_to_names(client, 'myfw', relation_fields, config)
+  #   translated = OpnApi::IdResolver.translate_to_names(client, 'opnsense01', relation_fields, config)
   module IdResolver
     UUID_RE = %r{\A[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}\z}
 

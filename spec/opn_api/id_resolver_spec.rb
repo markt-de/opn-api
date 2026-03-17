@@ -26,7 +26,7 @@ RSpec.describe OpnApi::IdResolver do
         'linkedServers' => { endpoint: 'haproxy/settings/search_servers', multiple: true },
       }
 
-      result = described_class.translate_to_names(client, 'myfw', relation_fields, config)
+      result = described_class.translate_to_names(client, 'opnsense01', relation_fields, config)
       expect(result['linkedServers']).to eq('server1,server2')
     end
 
@@ -38,7 +38,7 @@ RSpec.describe OpnApi::IdResolver do
         'linkedServers' => { endpoint: 'haproxy/settings/search_servers', multiple: true },
       }
 
-      result = described_class.translate_to_names(client, 'myfw', relation_fields, config)
+      result = described_class.translate_to_names(client, 'opnsense01', relation_fields, config)
       expect(result['linkedServers']).to eq('server1,unknown-uuid')
     end
 
@@ -50,7 +50,7 @@ RSpec.describe OpnApi::IdResolver do
         'defaultBackend' => { endpoint: 'haproxy/settings/search_servers', multiple: false },
       }
 
-      result = described_class.translate_to_names(client, 'myfw', relation_fields, config)
+      result = described_class.translate_to_names(client, 'opnsense01', relation_fields, config)
       expect(result['defaultBackend']).to eq('server1')
     end
 
@@ -62,7 +62,7 @@ RSpec.describe OpnApi::IdResolver do
         'linkedServers' => { endpoint: 'haproxy/settings/search_servers', multiple: false },
       }
 
-      described_class.translate_to_names(client, 'myfw', relation_fields, config)
+      described_class.translate_to_names(client, 'opnsense01', relation_fields, config)
       expect(config['linkedServers']).to eq('aaa-111')
     end
   end
@@ -77,7 +77,7 @@ RSpec.describe OpnApi::IdResolver do
         'linkedServers' => { endpoint: 'haproxy/settings/search_servers', multiple: true },
       }
 
-      result = described_class.translate_to_uuids(client, 'myfw', relation_fields, config)
+      result = described_class.translate_to_uuids(client, 'opnsense01', relation_fields, config)
       expect(result['linkedServers']).to eq('aaa-111,bbb-222')
     end
 
@@ -89,7 +89,7 @@ RSpec.describe OpnApi::IdResolver do
         'linkedServers' => { endpoint: 'haproxy/settings/search_servers', multiple: false },
       }
 
-      result = described_class.translate_to_uuids(client, 'myfw', relation_fields, config)
+      result = described_class.translate_to_uuids(client, 'opnsense01', relation_fields, config)
       expect(result['linkedServers']).to eq('aaa-111')
     end
 
@@ -102,7 +102,7 @@ RSpec.describe OpnApi::IdResolver do
       }
 
       expect do
-        described_class.translate_to_uuids(client, 'myfw', relation_fields, config)
+        described_class.translate_to_uuids(client, 'opnsense01', relation_fields, config)
       end.to raise_error(OpnApi::ResolveError, %r{cannot resolve 'nonexistent'})
     end
   end
@@ -148,8 +148,8 @@ RSpec.describe OpnApi::IdResolver do
         'field1' => { endpoint: 'haproxy/settings/search_servers', multiple: false },
       }
 
-      described_class.translate_to_names(client, 'myfw', relation_fields, { 'field1' => 'aaa-111' })
-      described_class.translate_to_names(client, 'myfw', relation_fields, { 'field1' => 'bbb-222' })
+      described_class.translate_to_names(client, 'opnsense01', relation_fields, { 'field1' => 'aaa-111' })
+      described_class.translate_to_names(client, 'opnsense01', relation_fields, { 'field1' => 'bbb-222' })
 
       expect(client).to have_received(:post).once
     end

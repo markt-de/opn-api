@@ -13,7 +13,7 @@ module OpnApi
   #
   # @example Direct instantiation
   #   client = OpnApi::Client.new(
-  #     url: 'https://fw.example.com/api',
+  #     url: 'https://opnsense01.example.com/api',
   #     api_key: '+ABC...', api_secret: '+XYZ...',
   #     ssl_verify: false,
   #   )
@@ -21,12 +21,12 @@ module OpnApi
   #
   # @example From Config
   #   config = OpnApi::Config.new
-  #   client = config.client_for('myfw')
+  #   client = config.client_for('opnsense01')
   class Client
     DEFAULT_URL = 'http://localhost:80/api'
     MAX_REDIRECTS = 5
 
-    # @param url [String] Base URL of the OPNsense API (e.g. 'https://fw.example.com/api')
+    # @param url [String] Base URL of the OPNsense API (e.g. 'https://opnsense01.example.com/api')
     # @param api_key [String] OPNsense API key
     # @param api_secret [String] OPNsense API secret
     # @param ssl_verify [Boolean] Whether to verify SSL certificates (default: true)

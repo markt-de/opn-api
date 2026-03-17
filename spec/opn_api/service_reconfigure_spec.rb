@@ -55,26 +55,26 @@ RSpec.describe OpnApi::ServiceReconfigure do
         .and_return({ 'status' => 'ok' })
 
       group = described_class[:run_test]
-      group.mark('myfw', client)
+      group.mark('opnsense01', client)
       results = group.run
 
-      expect(results).to eq({ 'myfw' => :ok })
+      expect(results).to eq({ 'opnsense01' => :ok })
     end
 
     it 'skips devices with errors' do
       group = described_class[:run_test]
-      group.mark('myfw', client)
-      group.mark_error('myfw')
+      group.mark('opnsense01', client)
+      group.mark_error('opnsense01')
       results = group.run
 
-      expect(results).to eq({ 'myfw' => :skipped })
+      expect(results).to eq({ 'opnsense01' => :skipped })
     end
 
     it 'clears state after run' do
       allow(client).to receive(:post).and_return({ 'status' => 'ok' })
 
       group = described_class[:run_test]
-      group.mark('myfw', client)
+      group.mark('opnsense01', client)
       group.run
 
       # Second run should be empty
@@ -97,10 +97,10 @@ RSpec.describe OpnApi::ServiceReconfigure do
         .and_return({ 'result' => '[ALERT] config error' })
 
       group = described_class[:configtest_test]
-      group.mark('myfw', client)
+      group.mark('opnsense01', client)
       results = group.run
 
-      expect(results).to eq({ 'myfw' => :skipped })
+      expect(results).to eq({ 'opnsense01' => :skipped })
     end
 
     it 'proceeds on passing configtest' do
@@ -112,10 +112,10 @@ RSpec.describe OpnApi::ServiceReconfigure do
         .and_return({ 'status' => 'ok' })
 
       group = described_class[:configtest_test]
-      group.mark('myfw', client)
+      group.mark('opnsense01', client)
       results = group.run
 
-      expect(results).to eq({ 'myfw' => :ok })
+      expect(results).to eq({ 'opnsense01' => :ok })
     end
 
     it 'proceeds with warning on WARNING' do
@@ -127,10 +127,10 @@ RSpec.describe OpnApi::ServiceReconfigure do
         .and_return({ 'status' => 'ok' })
 
       group = described_class[:configtest_test]
-      group.mark('myfw', client)
+      group.mark('opnsense01', client)
       results = group.run
 
-      expect(results).to eq({ 'myfw' => :ok })
+      expect(results).to eq({ 'opnsense01' => :ok })
     end
   end
 end

@@ -23,12 +23,12 @@ module OpnApi
   #
   # @example
   #   config = OpnApi::Config.new
-  #   config.device_names            # => ['myfw', 'backup']
-  #   client = config.client_for('myfw')
+  #   config.device_names            # => ['opnsense01', 'backup']
+  #   client = config.client_for('opnsense01')
   #
   # @example With explicit path (e.g. for puppet-opn integration)
   #   config = OpnApi::Config.new(config_dir: '/etc/puppetlabs/puppet/opn')
-  #   client = config.client_for('myfw')
+  #   client = config.client_for('opnsense01')
   class Config
     SYSTEM_DIR = '/etc/opn-api/devices'
     USER_DIR   = File.join(Dir.home, '.config', 'opn-api', 'devices')

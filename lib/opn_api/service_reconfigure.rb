@@ -16,9 +16,9 @@ module OpnApi
   #     endpoint: 'ipsec/service/reconfigure',
   #     log_prefix: 'opn_ipsec')
   #
-  #   OpnApi::ServiceReconfigure[:ipsec].mark('myfw', client)
+  #   OpnApi::ServiceReconfigure[:ipsec].mark('opnsense01', client)
   #   results = OpnApi::ServiceReconfigure[:ipsec].run
-  #   # => { 'myfw' => :ok }
+  #   # => { 'opnsense01' => :ok }
   class ServiceReconfigure
     # Global registry of named instances.
     @registry = {}

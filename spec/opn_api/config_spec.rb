@@ -19,20 +19,20 @@ RSpec.describe OpnApi::Config do
   after { FileUtils.rm_rf(tmpdir) }
 
   before do
-    File.write(File.join(tmpdir, 'myfw.yaml'), device_yaml)
+    File.write(File.join(tmpdir, 'opnsense01.yaml'), device_yaml)
   end
 
   describe '#device_names' do
     it 'returns available device names' do
       config = described_class.new(config_dir: tmpdir)
-      expect(config.device_names).to eq(['myfw'])
+      expect(config.device_names).to eq(['opnsense01'])
     end
 
     it 'returns sorted names' do
       File.write(File.join(tmpdir, 'afw.yaml'), device_yaml)
       File.write(File.join(tmpdir, 'zfw.yaml'), device_yaml)
       config = described_class.new(config_dir: tmpdir)
-      expect(config.device_names).to eq(%w[afw myfw zfw])
+      expect(config.device_names).to eq(%w[afw opnsense01 zfw])
     end
 
     it 'returns empty array for missing directory' do
@@ -44,7 +44,7 @@ RSpec.describe OpnApi::Config do
   describe '#device' do
     it 'returns device configuration hash' do
       config = described_class.new(config_dir: tmpdir)
-      result = config.device('myfw')
+      result = config.device('opnsense01')
       expect(result).to include(
         'url' => 'https://192.168.1.1/api',
         'api_key' => '+testkey',
@@ -68,7 +68,7 @@ RSpec.describe OpnApi::Config do
   describe '#client_for' do
     it 'returns a Client instance' do
       config = described_class.new(config_dir: tmpdir)
-      client = config.client_for('myfw')
+      client = config.client_for('opnsense01')
       expect(client).to be_a(OpnApi::Client)
     end
   end
