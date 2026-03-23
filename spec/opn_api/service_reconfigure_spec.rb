@@ -38,7 +38,8 @@ RSpec.describe OpnApi::ServiceReconfigure do
       described_class.load_defaults!
       names = described_class.registered_names
       expect(names).to include(:haproxy, :ipsec, :openvpn, :kea, :firewall_alias,
-                               :firewall_rule, :cron, :dhcrelay, :gateway, :route)
+                               :firewall_rule, :cron, :dhcrelay, :gateway,
+                               :puppet_agent, :route)
     end
   end
 

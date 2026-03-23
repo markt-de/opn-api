@@ -27,6 +27,7 @@ A Ruby client library and CLI tool for the OPNsense REST API.
     - [Node Exporter](#node-exporter)
     - [OpenVPN](#openvpn)
     - [Plugins](#plugins)
+    - [Puppet Agent](#puppet-agent)
     - [Routes](#routes)
     - [Service reconfigure](#service-reconfigure-1)
     - [Snapshots](#snapshots)
@@ -121,6 +122,7 @@ Backups and plugins are managed separately via dedicated commands (`backup`, `pl
 | `openvpn_cso` | OpenVPN client-specific overrides |
 | `openvpn_instance` | OpenVPN instances |
 | `openvpn_statickey` | OpenVPN static keys |
+| `puppet_agent` | Puppet Agent settings (singleton) |
 | `route` | Static routes |
 | `snapshot` | ZFS snapshots |
 | `syslog` | Syslog remote destinations |
@@ -607,6 +609,22 @@ $ opn-api -d opnsense01 uninstall os-haproxy
 
 Note: Install/uninstall are asynchronous — the API returns immediately while the operation continues in the background.
 
+### Puppet Agent
+
+Puppet Agent is a singleton resource (one per device).
+
+```
+# Show Puppet Agent settings (singleton)
+$ opn-api -d opnsense01 show puppet_agent
+
+# Update Puppet Agent settings (wrapper key: "puppetagent")
+$ opn-api -d opnsense01 update puppet_agent \
+    -j '{"puppetagent":{"general":{"Enabled":"1","FQDN":"puppet.example.com","Environment":"production"}}}'
+
+# Apply changes
+$ opn-api -d opnsense01 reconfigure puppet_agent
+```
+
 ### Routes
 
 ```
@@ -962,7 +980,7 @@ Resource names follow the [puppet-opn](https://github.com/markt-de/puppet-opn) n
 
 `OpnApi::ServiceReconfigure` orchestrates service reloads after configuration changes. Features include:
 
-- Registry pattern with 18 pre-registered OPNsense service groups
+- Registry pattern with many pre-registered OPNsense service groups
 - Mark/run pattern: track devices with changes, then batch-reconfigure
 - Configtest support (e.g. HAProxy validates config before reconfigure)
 - Error tracking: skip reconfigure for devices with failed resource changes

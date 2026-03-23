@@ -259,6 +259,13 @@ module OpnApi
         crud_action: '%{action}', wrapper: 'general',
         singleton: true, search_method: :get
       },
+      # --- Puppet Agent ---
+      'puppet_agent' => {
+        base_path: 'puppetagent/settings', search_action: 'get',
+        crud_action: '%{action}', wrapper: 'puppetagent',
+        singleton: true, search_method: :get,
+        response_dig: ['general']
+      },
       # --- OpenVPN ---
       'openvpn_cso' => {
         base_path: 'openvpn/client_overwrites', search_action: 'search',

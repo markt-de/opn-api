@@ -258,6 +258,11 @@ module OpnApi
                endpoint: 'nodeexporter/service/reconfigure',
                log_prefix: 'opn_node_exporter')
 
+      # Puppet Agent
+      register(:puppet_agent,
+               endpoint: 'puppetagent/service/reconfigure',
+               log_prefix: 'opn_puppet_agent')
+
       # OpenVPN
       register(:openvpn,
                endpoint: 'openvpn/service/reconfigure',

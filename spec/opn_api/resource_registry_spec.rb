@@ -50,6 +50,8 @@ RSpec.describe OpnApi::ResourceRegistry do
     it 'provides response_dig for singletons with sub-resources' do
       # Single sub-key extraction (acmeclient settings nested under 'settings')
       expect(described_class.lookup('acmeclient_settings')[:response_dig]).to eq(['settings'])
+      # Single sub-key extraction (puppet_agent settings nested under 'general')
+      expect(described_class.lookup('puppet_agent')[:response_dig]).to eq(['general'])
       # Multi-key slice (haproxy, ipsec, kea)
       expect(described_class.lookup('ipsec_settings')[:response_dig]).to eq(%w[general charon])
       expect(described_class.lookup('kea_dhcpv4')[:response_dig]).to eq(%w[general lexpire ha])
@@ -67,6 +69,15 @@ RSpec.describe OpnApi::ResourceRegistry do
       expect(described_class.lookup('hasync')[:response_dig]).to be_nil
       expect(described_class.lookup('node_exporter')[:response_dig]).to be_nil
       expect(described_class.lookup('zabbix_proxy')[:response_dig]).to be_nil
+    end
+
+    it 'handles puppet_agent singleton with settings controller' do
+      entry = described_class.lookup('puppet_agent')
+      expect(entry[:base_path]).to eq('puppetagent/settings')
+      expect(entry[:singleton]).to be true
+      expect(entry[:search_method]).to eq(:get)
+      expect(entry[:wrapper]).to eq('puppetagent')
+      expect(entry[:response_dig]).to eq(['general'])
     end
 
     it 'handles Kea camelCase endpoints' do
@@ -118,6 +129,7 @@ RSpec.describe OpnApi::ResourceRegistry do
         'kea_dhcpv6', 'kea_dhcpv6_pd_pool',
         'node_exporter',
         'openvpn_instance', 'openvpn_cso', 'openvpn_statickey',
+        'puppet_agent',
         'route', 'snapshot', 'syslog',
         'trust_ca', 'trust_cert', 'trust_crl',
         'tunable', 'user',
