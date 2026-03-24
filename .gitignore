@@ -18,3 +18,4 @@ tmp/
 .byebug_history
 .rspec_status
 vendor/
+.*.sw[op]
